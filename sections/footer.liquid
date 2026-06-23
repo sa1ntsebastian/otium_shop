@@ -250,6 +250,11 @@
     {%- endunless -%}
   {%- endif -%}
 
+  {%- comment %} Otium brand motto — static Etoile Italic display element {% endcomment -%}
+  <div class="otium-motto-band page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+    <p class="otium-motto otium-motto--footer">~&nbsp;in otio esse.&nbsp;~</p>
+  </div>
+
   <div
     class="footer__content-bottom{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
     {% if settings.animations_reveal_on_scroll %}

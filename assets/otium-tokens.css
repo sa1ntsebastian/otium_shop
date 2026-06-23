@@ -170,6 +170,17 @@ h6 {
   margin: 0;
 }
 
+/* Motto as a centred brand signature in the footer (every page). Capped a
+   touch smaller than a hero motto, with generous breathing room. */
+.otium-motto-band {
+  text-align: center;
+  margin-block: clamp(2.4rem, 6vw, 5.6rem);
+}
+.otium-motto--footer {
+  font-size: clamp(2.8rem, 4vw, 4rem);
+  color: var(--otm-gruen);
+}
+
 /* ----------------------------------------------------------------------------
    6. Accents — thin line / small label only, always on creme, never green flood
    Opt-in. Category templates re-point --otm-accent; helpers below consume it.
@@ -199,4 +210,40 @@ h6 {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--otm-accent);
+}
+
+/* ----------------------------------------------------------------------------
+   7. Branded placeholders
+   Dawn shows loud grey line-art SVGs where a merchant image is missing. Replace
+   that with a calm creme tile carrying a faint Etoile word-mark, so empty
+   states look intentional and on-brand (esp. in the dev/preview store).
+   ---------------------------------------------------------------------------- */
+.placeholder-svg {
+  background-color: var(--otm-creme);
+  fill: var(--otm-creme); /* hide the default illustration; tile stays creme */
+}
+
+/* Centre the word-mark over any container that holds a placeholder. */
+.media:has(> .placeholder-svg),
+.banner__media:has(.placeholder-svg),
+.card__media:has(.placeholder-svg),
+.placeholder:has(.placeholder-svg) {
+  position: relative;
+  background-color: var(--otm-creme);
+}
+.media:has(> .placeholder-svg)::after,
+.banner__media:has(.placeholder-svg)::after,
+.card__media:has(.placeholder-svg)::after,
+.placeholder:has(.placeholder-svg)::after {
+  content: 'Otium';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--otm-display);
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  letter-spacing: 0.12em;
+  color: rgba(45, 32, 22, 0.22);
+  pointer-events: none;
 }
