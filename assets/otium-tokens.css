@@ -67,10 +67,18 @@
      (see §6). Only ever used as a thin line / small label on creme. */
   --otm-accent: var(--otm-gruen);
 
-  /* Typography — re-point Dawn's own variables so the whole theme inherits it */
-  --font-heading-family: 'Etoile', Georgia, 'Times New Roman', serif;
+  /* Typography — re-point Dawn's own variables so the whole theme inherits it.
+     IMPORTANT: the heading family is the GROTESK, because Dawn applies
+     --font-heading-family to every heading incl. small ones (h3–h6, card
+     titles, facet titles). Etoile is a display serif and is unreadable small,
+     so it is applied ONLY to large display headlines via --otm-display below. */
+  --font-heading-family: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif;
   --font-heading-style: normal;
-  --font-heading-weight: 400; /* Etoile ships a single weight */
+  --font-heading-weight: 500; /* a touch more presence for small grotesk titles */
+
+  /* Display serif — large headlines + word-mark ONLY. Etoile ships one weight. */
+  --otm-display: 'Etoile', Georgia, 'Times New Roman', serif;
 
   --font-body-family: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI',
     Roboto, Helvetica, Arial, sans-serif;
@@ -94,12 +102,29 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Headlines: Etoile, calm tracking, never faux-bold */
-h1, h2, h3, h4, h5,
-.h0, .h1, .h2, .h3, .h4, .h5 {
+/* Large display headlines + text word-mark -> Etoile. Calm tracking, never
+   faux-bold (Etoile has a single weight). Small headings stay in the grotesk
+   inherited from --font-heading-family, so they remain readable. */
+.h0,
+h1, .h1,
+h2, .h2,
+.header__heading-link .h1,
+.header__heading-link .h2 {
+  font-family: var(--otm-display);
   font-synthesis: none;
   font-weight: 400;
   letter-spacing: 0.01em;
+}
+
+/* Small headings stay grotesk. The explicit family on the SIZE classes also
+   guards the edge case of a large tag carrying a small size class
+   (e.g. <h2 class="h4">) — a class beats a type selector, so it wins. */
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6 {
+  font-family: var(--font-heading-family);
+  letter-spacing: 0;
 }
 
 /* ----------------------------------------------------------------------------
