@@ -1,0 +1,177 @@
+/* ============================================================================
+   OTIUM — Brand tokens & restyling layer
+   Loaded AFTER Dawn's base.css so it overrides through the cascade (no !important
+   needed for variables; later source order wins at equal specificity).
+   Scope: visual restyling only. No commerce logic is touched here.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   1. Fonts (self-hosted, font-display: swap, no layout shift)
+   Relative url() resolves to the same /assets/ folder this file is served from.
+   - Etoile Regular  -> display serif: word-mark & large headlines
+   - Etoile Italic   -> reserved EXCLUSIVELY for the motto ".otium-motto"
+   - Hanken Grotesk  -> body text for everything else (variable weight 100–900)
+   ---------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Etoile';
+  src: url('otium-etoile-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Italic kept as a SEPARATE family so it can never be triggered by an italic
+   run inside body copy or headings — only the .otium-motto class calls it. */
+@font-face {
+  font-family: 'Etoile Motto';
+  src: url('otium-etoile-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal; /* declared upright so the browser never faux-styles it */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('otium-hanken-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('otium-hanken-latin-ext.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ----------------------------------------------------------------------------
+   2. Brand tokens
+   ---------------------------------------------------------------------------- */
+:root {
+  /* Palette */
+  --otm-creme: #f3ece0; /* surface, dominates ~75% */
+  --otm-gruen: #1e5a3c; /* anchor: logo, buttons, accents (~20%, never flooded) */
+  --otm-tinte: #2d2016; /* text */
+  --otm-corpus: #c99a98; /* accent — Kosmetik */
+  --otm-vinum: #6e3b47; /* accent — Wein */
+  --otm-vestis: #a98c66; /* accent — Mode */
+
+  /* Per-page accent slot. Defaults to green; category templates re-point it
+     (see §6). Only ever used as a thin line / small label on creme. */
+  --otm-accent: var(--otm-gruen);
+
+  /* Typography — re-point Dawn's own variables so the whole theme inherits it */
+  --font-heading-family: 'Etoile', Georgia, 'Times New Roman', serif;
+  --font-heading-style: normal;
+  --font-heading-weight: 400; /* Etoile ships a single weight */
+
+  --font-body-family: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-body-style: normal;
+  --font-body-weight: 400;
+  --font-body-weight-bold: 600;
+
+  /* Vertical rhythm — generous whitespace is the real premium lever */
+  --otm-rhythm: 2.4rem;
+}
+
+/* ----------------------------------------------------------------------------
+   3. Base surface & text — creme everywhere, ink for copy
+   (Color schemes in settings_data.json already produce these RGB triplets;
+   this is a belt-and-braces fallback so the brand holds even on default data.)
+   ---------------------------------------------------------------------------- */
+body {
+  font-synthesis: weight; /* allow synthetic bold for Hanken, never for serif */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headlines: Etoile, calm tracking, never faux-bold */
+h1, h2, h3, h4, h5,
+.h0, .h1, .h2, .h3, .h4, .h5 {
+  font-synthesis: none;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* ----------------------------------------------------------------------------
+   4. "Old money" calm — strip gradients, soften borders, remove heavy shadow
+   These keep Dawn's structure but enforce the restrained brand look.
+   ---------------------------------------------------------------------------- */
+
+/* No gradients anywhere — the body carries the flat creme surface. */
+.gradient,
+.color-scheme-1,
+.color-scheme-2,
+.color-scheme-3,
+.color-scheme-4,
+.color-scheme-5 {
+  --gradient-background: rgb(var(--color-background));
+  background-image: none !important;
+}
+
+/* Cards: let whitespace do the separating — no frames, no resting shadow. */
+.card-wrapper,
+.card {
+  --product-card-border-width: 0;
+  --product-card-shadow-opacity: 0;
+  --collection-card-border-width: 0;
+  --collection-card-shadow-opacity: 0;
+  --blog-card-border-width: 0;
+  --blog-card-shadow-opacity: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   5. The motto — ".otium-motto"
+   The ONLY place Etoile Italic is allowed. Large, static, no animation.
+   ---------------------------------------------------------------------------- */
+.otium-motto {
+  font-family: 'Etoile Motto', Georgia, serif;
+  font-style: italic; /* visual slant comes from the font file itself */
+  font-synthesis: none;
+  font-weight: 400;
+  font-size: clamp(2.8rem, 5vw, 5.6rem); /* min ~28px, scales up */
+  line-height: 1.1;
+  letter-spacing: 0.005em;
+  color: rgb(var(--color-foreground, 45 32 22));
+  margin: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   6. Accents — thin line / small label only, always on creme, never green flood
+   Opt-in. Category templates re-point --otm-accent; helpers below consume it.
+   ---------------------------------------------------------------------------- */
+.template-collection.otium-kosmetik,
+.otium-accent--kosmetik { --otm-accent: var(--otm-corpus); }
+.template-collection.otium-wein,
+.otium-accent--wein { --otm-accent: var(--otm-vinum); }
+.template-collection.otium-mode,
+.otium-accent--mode { --otm-accent: var(--otm-vestis); }
+
+/* Thin top hairline used to flag a section in the active accent. */
+.otium-rule {
+  border: 0;
+  border-top: 1px solid var(--otm-accent);
+  width: 4.8rem;
+  margin: 0 0 var(--otm-rhythm);
+  opacity: 0.85;
+}
+
+/* Small uppercase eyebrow label in the active accent. */
+.otium-label {
+  display: inline-block;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--otm-accent);
+}

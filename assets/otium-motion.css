@@ -1,0 +1,142 @@
+/* ============================================================================
+   OTIUM — Motion layer (restrained)
+   Allowed: scroll-reveal, hover-lift, image-hover-scale (<=1.03),
+            link underline grow, button fill / colour transitions.
+   Forbidden: bounce/spring, parallax, rotation, autoplay sliders,
+              scale > 1.05, anything < 300ms, any blinking.
+   No layout shift (CLS): reveals animate opacity + transform only.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   1. Scroll reveal — fade in + rise 10px, once, staggered (JS adds .otium-in)
+   Initial state is applied ONLY when JS is active (html.js) so non-JS users
+   and crawlers always see content. transform/opacity never affect layout.
+   ---------------------------------------------------------------------------- */
+.js .otium-reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 600ms ease-out, transform 600ms ease-out;
+  will-change: opacity, transform;
+}
+
+.js .otium-reveal.otium-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ----------------------------------------------------------------------------
+   2. Hover-lift for cards — translateY(-4px), 500ms ease + the one allowed
+   (dezent) hover shadow.
+   ---------------------------------------------------------------------------- */
+@media (hover: hover) {
+  .otium-lift {
+    transition: transform 500ms ease, box-shadow 500ms ease;
+  }
+  .otium-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px -18px rgba(45, 32, 22, 0.35);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   3. Image hover scale — max 1.03, 600ms ease, overflow hidden on container
+   Applied to Dawn's media wrappers; the container clips so layout is stable.
+   ---------------------------------------------------------------------------- */
+@media (hover: hover) {
+  .otium-zoom {
+    overflow: hidden;
+  }
+  .otium-zoom img,
+  .otium-zoom .otium-zoom__img {
+    transition: transform 600ms ease;
+    transform-origin: center;
+  }
+  .otium-zoom:hover img,
+  .otium-zoom:hover .otium-zoom__img {
+    transform: scale(1.03);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   4. Link underline grow — 0 -> 100% via ::after, 350ms ease
+   Opt-in via .otium-underline so it never fights Dawn's functional links.
+   ---------------------------------------------------------------------------- */
+.otium-underline {
+  position: relative;
+  text-decoration: none;
+}
+.otium-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 350ms ease;
+}
+@media (hover: hover) {
+  .otium-underline:hover::after,
+  .otium-underline:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   5. Buttons — border -> solid fill (350ms) and colour/opacity moves (300ms)
+   Targets Dawn's existing button classes; restyle only, no markup changes.
+   ---------------------------------------------------------------------------- */
+.button,
+.shopify-challenge__button,
+.customer button,
+button.shopify-payment-button__button--unbranded {
+  transition: background-color 350ms ease, color 350ms ease,
+    border-color 350ms ease, opacity 300ms ease, box-shadow 300ms ease;
+}
+
+/* ----------------------------------------------------------------------------
+   7. Re-tune Dawn's NATIVE scroll-reveal to the Otium spec instead of running a
+   second system. Dawn already tags sections with .scroll-trigger.animate--slide-in
+   and already uses 600ms + an ease-out curve + a <=80ms stagger (75ms) and is
+   already gated behind prefers-reduced-motion. We only shorten the rise from
+   2rem to 1rem (10px) to match the brief. Later @keyframes of the same name wins.
+   ---------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-trigger.animate--slide-in {
+    transform: translateY(1rem);
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(1rem);
+      opacity: 0.01;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   8. prefers-reduced-motion: hard off-switch for every animation above
+   ---------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .js .otium-reveal,
+  .js .otium-reveal.otium-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .otium-lift,
+  .otium-lift:hover,
+  .otium-zoom img,
+  .otium-zoom:hover img,
+  .otium-underline::after,
+  .button {
+    transition: none !important;
+    transform: none !important;
+  }
+}
