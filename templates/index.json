@@ -1,5 +1,14 @@
 {
   "sections": {
+    "otium_hero": {
+      "type": "otium-hero",
+      "settings": {
+        "motto": "in otio esse",
+        "uebersetzung": "In Muße sein.",
+        "prinzip": "Otium ist die alte Idee der erfüllten Ruhe — nicht der Leerlauf aus Mangel, sondern die Muße als das, was zählt. Die Stunden, in denen nichts muss. Für sie sind diese Dinge gemacht: schlicht, sorgfältig, ohne Eile.",
+        "ornament": "rules"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -69,6 +78,7 @@
     }
   },
   "order": [
+    "otium_hero",
     "image_banner",
     "featured_collection"
   ]

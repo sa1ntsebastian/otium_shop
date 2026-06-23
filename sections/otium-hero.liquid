@@ -1,0 +1,181 @@
+{%- comment -%}
+  Otium Hero — typographic hero for the homepage.
+  Self-contained Dawn OS 2.0 section: all text editable in the Customizer.
+  Uses only the existing --otm-* tokens and the embedded Etoile Italic
+  (@font-face family 'Etoile Motto', defined in assets/otium-tokens.css).
+  Reuses Dawn's native scroll-trigger reveal — does not modify the motion layer.
+{%- endcomment -%}
+
+{%- liquid
+  assign reveal = settings.animations_reveal_on_scroll
+  assign orn = section.settings.ornament
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .otium-hero {
+    background-color: var(--otm-creme);
+    text-align: center;
+    padding-block: clamp(9.6rem, 14vw, 15rem);
+    padding-inline: 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .otium-hero__inner {
+    max-width: 72rem;
+    margin-inline: auto;
+  }
+
+  /* Motto — Etoile Italic, large, green. Never transformed (no hairline flicker). */
+  #shopify-section-{{ section.id }} .otium-hero__motto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.6rem, 3vw, 2.8rem);
+    margin: 0;
+    font-family: 'Etoile Motto', Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-synthesis: none;
+    font-weight: 400;
+    font-size: clamp(4rem, 7vw, 7.2rem);
+    line-height: 1.05;
+    letter-spacing: 0.005em;
+    color: var(--otm-gruen);
+  }
+
+  #shopify-section-{{ section.id }} .otium-hero__motto-text {
+    display: inline-block;
+  }
+
+  /* Ornament: 1px hairlines flanking the motto, vertically centred via flex. */
+  #shopify-section-{{ section.id }} .otium-hero__rule {
+    flex: 0 0 auto;
+    width: 4.8rem;
+    height: 1px;
+    background-color: var(--otm-gruen);
+    opacity: 0.45;
+  }
+
+  /* Ornament: literal tildes (also Etoile Italic, slightly muted). */
+  #shopify-section-{{ section.id }} .otium-hero__tilde {
+    flex: 0 0 auto;
+    font-family: 'Etoile Motto', Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-synthesis: none;
+    font-size: 0.7em;
+    line-height: 1;
+    color: var(--otm-gruen);
+    opacity: 0.55;
+  }
+
+  /* Translation — small, letter-spaced, ink, muted. */
+  #shopify-section-{{ section.id }} .otium-hero__translation {
+    margin: clamp(1.6rem, 2.5vw, 2.4rem) 0 0;
+    font-family: var(--font-body-family);
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--otm-tinte);
+    opacity: 0.6;
+  }
+
+  /* Principle — Hanken Grotesk, calm measure, generous leading. */
+  #shopify-section-{{ section.id }} .otium-hero__principle {
+    max-width: 56rem;
+    margin: clamp(2.8rem, 4.5vw, 4.4rem) auto 0;
+    font-family: var(--font-body-family);
+    font-size: clamp(1.6rem, 1.6vw, 1.8rem);
+    line-height: 1.7;
+    color: var(--otm-tinte);
+  }
+
+  @media screen and (max-width: 480px) {
+    /* Keep the hairlines from crowding a wrapped motto on small screens. */
+    #shopify-section-{{ section.id }} .otium-hero__rule {
+      width: 3.2rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="otium-hero">
+  <div class="otium-hero__inner">
+    {%- comment -%} Motto: opacity-only fade (Dawn's animate--fade-in is pure opacity). {%- endcomment -%}
+    <div
+      class="otium-hero__motto-wrap{% if reveal %} scroll-trigger animate--fade-in{% endif %}"
+      {% if reveal %}data-cascade{% endif %}
+    >
+      <p class="otium-hero__motto">
+        {%- if orn == 'rules' -%}
+          <span class="otium-hero__rule" aria-hidden="true"></span>
+        {%- elsif orn == 'tilde' -%}
+          <span class="otium-hero__tilde" aria-hidden="true">~</span>
+        {%- endif -%}
+        <span class="otium-hero__motto-text">{{ section.settings.motto | escape }}</span>
+        {%- if orn == 'rules' -%}
+          <span class="otium-hero__rule" aria-hidden="true"></span>
+        {%- elsif orn == 'tilde' -%}
+          <span class="otium-hero__tilde" aria-hidden="true">~</span>
+        {%- endif -%}
+      </p>
+    </div>
+
+    {%- if section.settings.uebersetzung != blank -%}
+      <p
+        class="otium-hero__translation{% if reveal %} scroll-trigger animate--slide-in{% endif %}"
+        {% if reveal %}style="--animation-order: 2;"{% endif %}
+      >
+        {{- section.settings.uebersetzung | escape -}}
+      </p>
+    {%- endif -%}
+
+    {%- if section.settings.prinzip != blank -%}
+      <p
+        class="otium-hero__principle{% if reveal %} scroll-trigger animate--slide-in{% endif %}"
+        {% if reveal %}style="--animation-order: 3;"{% endif %}
+      >
+        {{- section.settings.prinzip | escape | newline_to_br -}}
+      </p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Otium Hero",
+  "class": "otium-hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "motto",
+      "label": "Motto (Etoile Italic)",
+      "default": "in otio esse"
+    },
+    {
+      "type": "text",
+      "id": "uebersetzung",
+      "label": "Übersetzung",
+      "default": "In Muße sein."
+    },
+    {
+      "type": "textarea",
+      "id": "prinzip",
+      "label": "Prinzip-Text",
+      "default": "Otium ist die alte Idee der erfüllten Ruhe — nicht der Leerlauf aus Mangel, sondern die Muße als das, was zählt. Die Stunden, in denen nichts muss. Für sie sind diese Dinge gemacht: schlicht, sorgfältig, ohne Eile."
+    },
+    {
+      "type": "select",
+      "id": "ornament",
+      "label": "Ornament",
+      "options": [
+        { "value": "rules", "label": "Haarlinien" },
+        { "value": "tilde", "label": "Tilde (~)" },
+        { "value": "none", "label": "Ohne" }
+      ],
+      "default": "rules"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Otium Hero"
+    }
+  ]
+}
+{% endschema %}
