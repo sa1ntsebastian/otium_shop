@@ -104,6 +104,14 @@
    (Color schemes in settings_data.json already produce these RGB triplets;
    this is a belt-and-braces fallback so the brand holds even on default data.)
    ---------------------------------------------------------------------------- */
+
+/* Force the shop background to creme (html covers overscroll; body overrides any
+   scheme). The green header is a separate element, so it is unaffected. */
+html,
+body {
+  background-color: var(--otm-creme) !important;
+}
+
 body {
   font-synthesis: weight; /* allow synthetic bold for Hanken, never for serif */
   -webkit-font-smoothing: antialiased;
