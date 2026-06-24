@@ -186,6 +186,36 @@ h1, h2, h3, h4, h5, h6,
   background-image: none !important;
 }
 
+/* Structured product title — Name / Duft / Produkt split from product.title.
+   Name large in Otium green; the other two quiet in Hanken; each preceded by a
+   small Altrosa role label (.otium-eyebrow). */
+.product__title-structured {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  letter-spacing: 0;
+}
+.product__title-structured .otium-eyebrow {
+  margin: 0;
+}
+.product__title-structured .otium-eyebrow:not(:first-child) {
+  margin-top: 1.4rem;
+}
+.product__title-name {
+  font-family: var(--otm-display);
+  color: var(--otm-gruen);
+  font-size: clamp(3.2rem, 5vw, 4.4rem);
+  line-height: 1.05;
+}
+.product__title-line {
+  font-family: var(--font-body-family);
+  color: var(--otm-tinte);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 2vw, 2.2rem);
+  line-height: 1.3;
+}
+
 /* Cards: let whitespace do the separating — no frames, no resting shadow. */
 .card-wrapper,
 .card {

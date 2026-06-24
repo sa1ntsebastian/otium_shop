@@ -99,7 +99,20 @@
                   </p>
                 {%- when 'title' -%}
                   <div class="product__title" {{ block.shopify_attributes }}>
-                    <h1>{{ product.title | escape }}</h1>
+                    {%- comment -%} Otium: structure a "Name - Produkt - Duft" title into Name / Duft / Produkt with small role labels; fall back to the plain title otherwise. {%- endcomment -%}
+                    {%- assign otm_title_parts = product.title | split: ' - ' -%}
+                    {%- if otm_title_parts.size == 3 -%}
+                      <h1 class="product__title-structured">
+                        <span class="otium-eyebrow" aria-hidden="true">Name</span>
+                        <span class="product__title-name">{{ otm_title_parts[0] | strip | escape }}</span>
+                        <span class="otium-eyebrow" aria-hidden="true">Duft</span>
+                        <span class="product__title-line">{{ otm_title_parts[2] | strip | escape }}</span>
+                        <span class="otium-eyebrow" aria-hidden="true">Produkt</span>
+                        <span class="product__title-line">{{ otm_title_parts[1] | strip | escape }}</span>
+                      </h1>
+                    {%- else -%}
+                      <h1>{{ product.title | escape }}</h1>
+                    {%- endif -%}
                     <a href="{{ product.url }}" class="product__title">
                       <h2 class="h1">
                         {{ product.title | escape }}
