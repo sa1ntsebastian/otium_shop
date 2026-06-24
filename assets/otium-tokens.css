@@ -170,6 +170,21 @@ h1, h2, h3, h4, h5, h6,
   color: var(--otm-gruen);
 }
 
+/* Inverted menu band: when the header uses the green scheme, the word-mark,
+   nav labels (incl. hover/active underline) and their underlines flip to creme
+   — these win over the green rules above via the .color-scheme-4 prefix.
+   Icons already follow --color-foreground (creme) automatically. Dropdowns and
+   the mobile drawer keep their own menu_color_scheme (creme), so they stay
+   readable with green labels. */
+.color-scheme-4 .header__heading-link .h2,
+.color-scheme-4 .header__heading-link:hover .h2,
+.color-scheme-4 .header__menu-item,
+.color-scheme-4 .header__menu-item:hover,
+.color-scheme-4 .header__active-menu-item,
+.color-scheme-4 .header__menu-item:hover .header__active-menu-item {
+  color: rgb(var(--color-foreground));
+}
+
 /* ----------------------------------------------------------------------------
    4. "Old money" calm — strip gradients, soften borders, remove heavy shadow
    These keep Dawn's structure but enforce the restrained brand look.
