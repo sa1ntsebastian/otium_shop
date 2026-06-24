@@ -261,6 +261,16 @@ h1, h2, h3, h4, h5, h6,
   margin-top: 0.4rem;
 }
 
+/* Product image lightbox: keep every image within the viewport so a click never
+   blows it up beyond the screen (Dawn otherwise renders it at intrinsic size,
+   forcing the user to scroll). Scales down proportionally, centred. */
+.product-media-modal__content img {
+  max-height: calc(100vh - 6rem);
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
 /* Cards: let whitespace do the separating — no frames, no resting shadow. */
 .card-wrapper,
 .card {
