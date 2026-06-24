@@ -102,7 +102,7 @@
       class="otium-hero__motto-wrap{% if reveal %} scroll-trigger animate--fade-in{% endif %}"
       {% if reveal %}data-cascade{% endif %}
     >
-      <p class="otium-hero__motto">
+      <p class="otium-hero__motto" aria-label="{{ section.settings.motto | replace: 'ø', 'o' | replace: 'Ø', 'O' | escape }}">
         {%- if orn == 'rules' -%}
           <span class="otium-hero__rule" aria-hidden="true"></span>
         {%- elsif orn == 'tilde' -%}
@@ -146,7 +146,7 @@
       "type": "text",
       "id": "motto",
       "label": "Motto (Otium)",
-      "default": "in otio esse"
+      "default": "in øtiø esse"
     },
     {
       "type": "text",
