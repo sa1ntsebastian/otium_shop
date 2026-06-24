@@ -59,7 +59,15 @@
       <h1 class="philosophy__heading">{{ section.settings.heading | escape }}</h1>
     {%- endif -%}
     {%- if section.settings.content != blank -%}
-      <div class="philosophy__body rte">{{ section.settings.content }}</div>
+      {%- comment -%} Otium: the word "otium" is always lowercase, Otium font, green — wrap it (protecting "negotium") so it stays branded even inside the rich text. {%- endcomment -%}
+      {%- liquid
+        assign otm_content = section.settings.content
+        assign otm_content = otm_content | replace: 'Negotium', '@@NEGC@@' | replace: 'negotium', '@@NEG@@'
+        assign otm_content = otm_content | replace: 'Otium', 'otium'
+        assign otm_content = otm_content | replace: 'otium', '<span class="otium-word">otium</span>'
+        assign otm_content = otm_content | replace: '@@NEGC@@', 'Negotium' | replace: '@@NEG@@', 'negotium'
+      -%}
+      <div class="philosophy__body rte">{{ otm_content }}</div>
     {%- endif -%}
   </div>
 </div>
@@ -79,8 +87,8 @@
       "type": "richtext",
       "id": "content",
       "label": "Fließtext",
-      "info": "Lateinische Begriffe (negotium, otium) kursiv setzen.",
-      "default": "<p>Die Römer kannten zwei Zustände: <em>negotium</em>, das Geschäft, die Unruhe des Tuns — und <em>otium</em>, seinen Gegenpol. Nicht Müßiggang, sondern die Zeit, die einem selbst gehört. Lesen, denken, in Ruhe leben.</p><p>Wir haben das <em>otium</em> gegen die Geschäftigkeit eingetauscht und nennen das Fortschritt.</p><p><em>otium</em> ist der Versuch, ein Stück davon zurückzuholen. Keine Dinge, die schneller machen — sondern Dinge für die Momente, in denen nichts erledigt werden muss. Schlicht, langlebig, ohne Lärm.</p>"
+      "info": "„otium\" wird automatisch klein, in der Otium-Schrift und grün gesetzt. „negotium\" ggf. kursiv.",
+      "default": "<p>Die Römer kannten zwei Zustände: <em>negotium</em>, das Geschäft, die Unruhe des Tuns — und otium, seinen Gegenpol. Nicht Müßiggang, sondern die Zeit, die einem selbst gehört. Lesen, denken, in Ruhe leben.</p><p>Wir haben das otium gegen die Geschäftigkeit eingetauscht und nennen das Fortschritt.</p><p>otium ist der Versuch, ein Stück davon zurückzuholen. Keine Dinge, die schneller machen — sondern Dinge für die Momente, in denen nichts erledigt werden muss. Schlicht, langlebig, ohne Lärm.</p>"
     }
   ],
   "presets": [

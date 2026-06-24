@@ -185,6 +185,17 @@ h1, h2, h3, h4, h5, h6,
   color: rgb(var(--color-foreground));
 }
 
+/* The brand word "otium" — wherever it appears in copy it is always lowercase,
+   in the Otium display font and green. font-style: normal so it stays upright
+   even inside an <em>. Applied via the otium-split-title / philosophy wrapping. */
+.otium-word {
+  font-family: var(--otm-display);
+  font-style: normal;
+  font-synthesis: none;
+  color: var(--otm-gruen);
+  text-transform: lowercase;
+}
+
 /* ----------------------------------------------------------------------------
    4. "Old money" calm — strip gradients, soften borders, remove heavy shadow
    These keep Dawn's structure but enforce the restrained brand look.
