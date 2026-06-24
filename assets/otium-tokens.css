@@ -290,6 +290,17 @@ h1, h2, h3, h4, h5, h6,
   --blog-card-shadow-opacity: 0;
 }
 
+/* Product card hover: ONLY swap to the second image — no lift, no scale, no
+   motion. Neutralise Dawn's native 1.03 image scale (the opacity swap that
+   reveals the second image is kept). */
+.card-wrapper:hover .media.media--hover-effect > img,
+.card:hover .media.media--hover-effect > img,
+.card-wrapper:hover .media.media--hover-effect > img:only-child,
+.card-wrapper:hover .media.media--hover-effect > img + img {
+  transform: none !important;
+  transition: none !important;
+}
+
 /* ----------------------------------------------------------------------------
    5. The motto — ".otium-motto"
    Set in the Otium display font. Large, static, no animation. Use the built-in

@@ -42,7 +42,7 @@
   -%}
 
   <product-component view-event-payload="{{ card_product | standard_event_data: 'view', context: product_view_context | escape }}">
-    <div class="card-wrapper product-card-wrapper underline-links-hover otium-lift">
+    <div class="card-wrapper product-card-wrapper underline-links-hover">
       <div
         class="
           card card--{{ settings.card_style }}
@@ -61,7 +61,7 @@
         >
           {%- if card_product.featured_media -%}
             <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
-              <div class="media media--transparent media--hover-effect otium-zoom">
+              <div class="media media--transparent media--hover-effect">
                 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
                 <img
                   srcset="
@@ -596,7 +596,7 @@
           class="card__media {% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}"
         >
           <div
-            class="media media--transparent otium-zoom"
+            class="media media--transparent"
           >
             {%- if placeholder_image -%}
               {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg' }}
