@@ -269,7 +269,7 @@ h6 {
 .banner__media:has(.placeholder-svg)::after,
 .card__media:has(.placeholder-svg)::after,
 .placeholder:has(.placeholder-svg)::after {
-  content: 'Otium';
+  content: 'otium';
   position: absolute;
   inset: 0;
   display: flex;
