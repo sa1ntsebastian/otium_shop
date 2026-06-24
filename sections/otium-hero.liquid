@@ -1,8 +1,8 @@
 {%- comment -%}
   Otium Hero — typographic hero for the homepage.
   Self-contained Dawn OS 2.0 section: all text editable in the Customizer.
-  Uses only the existing --otm-* tokens and the embedded Etoile Italic
-  (@font-face family 'Etoile Motto', defined in assets/otium-tokens.css).
+  Uses only the existing --otm-* tokens and the embedded Otium display font
+  (@font-face family 'Otium', defined in assets/otium-tokens.css).
   Reuses Dawn's native scroll-trigger reveal — does not modify the motion layer.
 {%- endcomment -%}
 
@@ -24,15 +24,15 @@
     margin-inline: auto;
   }
 
-  /* Motto — Etoile Italic, large, green. Never transformed (no hairline flicker). */
+  /* Motto — Otium, large, green. Never transformed (no hairline flicker). */
   #shopify-section-{{ section.id }} .otium-hero__motto {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: clamp(1.6rem, 3vw, 2.8rem);
     margin: 0;
-    font-family: 'Etoile Motto', Georgia, 'Times New Roman', serif;
-    font-style: italic;
+    font-family: 'Otium', Georgia, 'Times New Roman', serif;
+    font-style: normal;
     font-synthesis: none;
     font-weight: 400;
     font-size: clamp(4rem, 7vw, 7.2rem);
@@ -54,11 +54,11 @@
     opacity: 0.45;
   }
 
-  /* Ornament: literal tildes (also Etoile Italic, slightly muted). */
+  /* Ornament: literal tildes (also Otium, slightly muted). */
   #shopify-section-{{ section.id }} .otium-hero__tilde {
     flex: 0 0 auto;
-    font-family: 'Etoile Motto', Georgia, 'Times New Roman', serif;
-    font-style: italic;
+    font-family: 'Otium', Georgia, 'Times New Roman', serif;
+    font-style: normal;
     font-synthesis: none;
     font-size: 0.7em;
     line-height: 1;
@@ -145,7 +145,7 @@
     {
       "type": "text",
       "id": "motto",
-      "label": "Motto (Etoile Italic)",
+      "label": "Motto (Otium)",
       "default": "in otio esse"
     },
     {

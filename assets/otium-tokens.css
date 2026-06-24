@@ -8,8 +8,7 @@
 /* ----------------------------------------------------------------------------
    1. Fonts (self-hosted, font-display: swap, no layout shift)
    Relative url() resolves to the same /assets/ folder this file is served from.
-   - Otium          -> display font: word-mark & large headlines
-   - Etoile Italic   -> reserved EXCLUSIVELY for the motto ".otium-motto"
+   - Otium          -> display font: word-mark, large headlines & the motto
    - Hanken Grotesk  -> body text for everything else (variable weight 100–900)
    ---------------------------------------------------------------------------- */
 @font-face {
@@ -17,16 +16,6 @@
   src: url('otium-display.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
-}
-
-/* Italic kept as a SEPARATE family so it can never be triggered by an italic
-   run inside body copy or headings — only the .otium-motto class calls it. */
-@font-face {
-  font-family: 'Etoile Motto';
-  src: url('otium-etoile-italic.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal; /* declared upright so the browser never faux-styles it */
   font-display: swap;
 }
 
@@ -122,8 +111,8 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Large display headlines + text word-mark -> Etoile. Calm tracking, never
-   faux-bold (Etoile has a single weight). Small headings stay in the grotesk
+/* Large display headlines + text word-mark -> Otium. Calm tracking, never
+   faux-bold (Otium has a single weight). Small headings stay in the grotesk
    inherited from --font-heading-family, so they remain readable. */
 .h0,
 h1, .h1,
@@ -176,11 +165,12 @@ h6 {
 
 /* ----------------------------------------------------------------------------
    5. The motto — ".otium-motto"
-   The ONLY place Etoile Italic is allowed. Large, static, no animation.
+   Set in the Otium display font. Large, static, no animation. Use the built-in
+   slashed-o glyph (ø) in the text where the struck "o" is wanted.
    ---------------------------------------------------------------------------- */
 .otium-motto {
-  font-family: 'Etoile Motto', Georgia, serif;
-  font-style: italic; /* visual slant comes from the font file itself */
+  font-family: 'Otium', Georgia, serif;
+  font-style: normal;
   font-synthesis: none;
   font-weight: 400;
   font-size: clamp(2.8rem, 5vw, 5.6rem); /* min ~28px, scales up */
@@ -249,7 +239,7 @@ h6 {
 /* ----------------------------------------------------------------------------
    7. Branded placeholders
    Dawn shows loud grey line-art SVGs where a merchant image is missing. Replace
-   that with a calm creme tile carrying a faint Etoile word-mark, so empty
+   that with a calm creme tile carrying a faint Otium word-mark, so empty
    states look intentional and on-brand (esp. in the dev/preview store).
    ---------------------------------------------------------------------------- */
 .placeholder-svg {
