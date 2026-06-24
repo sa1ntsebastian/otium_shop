@@ -1,0 +1,38 @@
+{%- comment -%}
+  Otium — split a "Name – Produkt – Duft" product title into structured lines.
+  Robust to several separators (-, –, —, |, /) each surrounded by spaces.
+  Display order: Name, Duft, Produkt. Falls back to the plain title when it is
+  not a clean 3-part name.
+
+  Params:
+    title  {String}  the raw product title (required)
+    labels {Boolean} true  -> product page: big name + Altrosa role labels
+                     false -> catalog card: compact name + two quiet lines
+  Usage:
+    <h1 class="product__title-structured">{% render 'otium-split-title', title: product.title, labels: true %}</h1>
+    <a ...>{% render 'otium-split-title', title: card_product.title, labels: false %}</a>
+{%- endcomment -%}
+{%- liquid
+  assign sep = ' | '
+  assign norm = title | replace: ' – ', sep | replace: ' — ', sep | replace: ' - ', sep | replace: ' / ', sep
+  assign parts = norm | split: sep
+-%}
+{%- if parts.size == 3 -%}
+  {%- assign otm_name = parts[0] | strip -%}
+  {%- assign otm_produkt = parts[1] | strip -%}
+  {%- assign otm_duft = parts[2] | strip -%}
+  {%- if labels -%}
+    <span class="otium-eyebrow" aria-hidden="true">Name</span>
+    <span class="product__title-name">{{ otm_name | escape }}</span>
+    <span class="otium-eyebrow" aria-hidden="true">Duft</span>
+    <span class="product__title-line">{{ otm_duft | escape }}</span>
+    <span class="otium-eyebrow" aria-hidden="true">Produkt</span>
+    <span class="product__title-line">{{ otm_produkt | escape }}</span>
+  {%- else -%}
+    <span class="otium-cardtitle__name">{{ otm_name | escape }}</span>
+    <span class="otium-cardtitle__line">{{ otm_duft | escape }}</span>
+    <span class="otium-cardtitle__line">{{ otm_produkt | escape }}</span>
+  {%- endif -%}
+{%- else -%}
+  {{ title | escape }}
+{%- endif -%}
