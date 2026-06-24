@@ -136,6 +136,23 @@ h6 {
   letter-spacing: 0;
 }
 
+/* Headings, word-mark and main-nav labels in brand green. Green text on creme
+   is on-brand (accent colour, never a flooded area). The word-mark is an .h2,
+   so it is covered here too. */
+h1, h2, h3, h4, h5, h6,
+.h0, .h1, .h2, .h3, .h4, .h5,
+.header__menu-item,
+.menu-drawer__menu-item {
+  color: var(--otm-gruen);
+}
+
+/* Keep these legible on the green-background scheme (e.g. badges / a section a
+   merchant sets to the green scheme) — fall back to that scheme's text colour. */
+.color-scheme-4 :is(h1, h2, h3, h4, h5, h6, .h0, .h1, .h2, .h3, .h4, .h5,
+  .header__menu-item, .menu-drawer__menu-item) {
+  color: rgb(var(--color-foreground));
+}
+
 /* ----------------------------------------------------------------------------
    4. "Old money" calm — strip gradients, soften borders, remove heavy shadow
    These keep Dawn's structure but enforce the restrained brand look.
