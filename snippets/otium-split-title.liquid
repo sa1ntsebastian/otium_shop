@@ -1,37 +1,60 @@
 {%- comment -%}
-  Otium — split a "Name – Produkt – Duft" product title into structured lines.
-  Robust to several separators (-, –, —, |, /) each surrounded by spaces.
-  Display order: Name, Duft, Produkt. Falls back to the plain title when it is
-  not a clean 3-part name.
+  Otium — split a product title into Name / Duft / Produkt.
+  Supported title formats (separators may be -, –, — around spaces):
+    "Name — Produkt, Duft"      (dash for the name, comma for produkt/duft)
+    "Name — Produkt — Duft"     (dash for all three)
+  Display order: Name, Duft, Produkt. Falls back to the plain title otherwise.
 
   Params:
     title  {String}  the raw product title (required)
     labels {Boolean} true  -> product page: big name + Altrosa role labels
-                     false -> catalog card: compact name + two quiet lines
-  Usage:
-    <h1 class="product__title-structured">{% render 'otium-split-title', title: product.title, labels: true %}</h1>
-    <a ...>{% render 'otium-split-title', title: card_product.title, labels: false %}</a>
+                     false -> catalog card: compact name + quiet lines
 {%- endcomment -%}
 {%- liquid
-  assign sep = ' | '
-  assign norm = title | replace: ' – ', sep | replace: ' — ', sep | replace: ' - ', sep | replace: ' / ', sep
-  assign parts = norm | split: sep
+  assign dash = '|||'
+  assign norm = title | replace: ' — ', dash | replace: ' – ', dash | replace: ' - ', dash
+  assign dparts = norm | split: dash
+  assign found = false
+
+  if dparts.size == 3
+    assign otm_name = dparts[0] | strip
+    assign otm_produkt = dparts[1] | strip
+    assign otm_duft = dparts[2] | strip
+    assign found = true
+  elsif dparts.size == 2
+    assign otm_name = dparts[0] | strip
+    assign rest = dparts[1] | strip
+    assign cparts = rest | split: ', '
+    if cparts.size >= 2
+      assign otm_produkt = cparts[0] | strip
+      assign otm_duft = rest | remove_first: cparts[0] | replace_first: ',', '' | strip
+    else
+      assign otm_produkt = rest
+      assign otm_duft = ''
+    endif
+    assign found = true
+  endif
 -%}
-{%- if parts.size == 3 -%}
-  {%- assign otm_name = parts[0] | strip -%}
-  {%- assign otm_produkt = parts[1] | strip -%}
-  {%- assign otm_duft = parts[2] | strip -%}
+{%- if found -%}
   {%- if labels -%}
     <span class="otium-eyebrow" aria-hidden="true">Name</span>
     <span class="product__title-name">{{ otm_name | escape }}</span>
-    <span class="otium-eyebrow" aria-hidden="true">Duft</span>
-    <span class="product__title-line">{{ otm_duft | escape }}</span>
-    <span class="otium-eyebrow" aria-hidden="true">Produkt</span>
-    <span class="product__title-line">{{ otm_produkt | escape }}</span>
+    {%- if otm_duft != blank -%}
+      <span class="otium-eyebrow" aria-hidden="true">Duft</span>
+      <span class="product__title-line">{{ otm_duft | escape }}</span>
+    {%- endif -%}
+    {%- if otm_produkt != blank -%}
+      <span class="otium-eyebrow" aria-hidden="true">Produkt</span>
+      <span class="product__title-line">{{ otm_produkt | escape }}</span>
+    {%- endif -%}
   {%- else -%}
     <span class="otium-cardtitle__name">{{ otm_name | escape }}</span>
-    <span class="otium-cardtitle__line">{{ otm_duft | escape }}</span>
-    <span class="otium-cardtitle__line">{{ otm_produkt | escape }}</span>
+    {%- if otm_duft != blank -%}
+      <span class="otium-cardtitle__line">{{ otm_duft | escape }}</span>
+    {%- endif -%}
+    {%- if otm_produkt != blank -%}
+      <span class="otium-cardtitle__line">{{ otm_produkt | escape }}</span>
+    {%- endif -%}
   {%- endif -%}
 {%- else -%}
   {{ title | escape }}
