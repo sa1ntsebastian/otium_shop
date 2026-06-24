@@ -212,6 +212,20 @@ h6 {
   color: var(--otm-accent);
 }
 
+/* Eyebrow — small spaced caps label in Altrosa, set above a section headline.
+   Quiet by design: no bold, generous tracking. Rendered via snippet
+   'otium-eyebrow'. e.g. "CORPUS" above the product collection. */
+.otium-eyebrow {
+  display: block;
+  margin: 0 0 1.2rem;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--otm-corpus);
+}
+
 /* ----------------------------------------------------------------------------
    7. Branded placeholders
    Dawn shows loud grey line-art SVGs where a merchant image is missing. Replace

@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "philosophy": {
+      "type": "philosophy",
+      "settings": {
+        "heading": "Otium",
+        "content": "<p>Die Römer kannten zwei Zustände: <em>negotium</em>, das Geschäft, die Unruhe des Tuns — und <em>otium</em>, seinen Gegenpol. Nicht Müßiggang, sondern die Zeit, die einem selbst gehört. Lesen, denken, in Ruhe leben.</p><p>Wir haben das <em>otium</em> gegen die Geschäftigkeit eingetauscht und nennen das Fortschritt.</p><p><em>Otium</em> ist der Versuch, ein Stück davon zurückzuholen. Keine Dinge, die schneller machen — sondern Dinge für die Momente, in denen nichts erledigt werden muss. Schlicht, langlebig, ohne Lärm.</p>"
+      }
+    }
+  },
+  "order": [
+    "philosophy"
+  ]
+}

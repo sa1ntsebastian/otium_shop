@@ -1,0 +1,18 @@
+{%- comment -%}
+  Otium eyebrow — small spaced caps label in Altrosa, set above a section
+  headline. Reusable everywhere; styled by .otium-eyebrow in otium-tokens.css.
+
+  Usage:
+    {% render 'otium-eyebrow', text: 'CORPUS' %}
+    {% render 'otium-eyebrow', text: 'Corpus', tag: 'span' %}
+
+  Params:
+    text  {String}  the label text (required)
+    tag   {String}  wrapper element, 'p' (default) or 'span'
+{%- endcomment -%}
+{%- liquid
+  assign eyebrow_tag = tag | default: 'p'
+-%}
+{%- if text != blank -%}
+  <{{ eyebrow_tag }} class="otium-eyebrow">{{ text | escape }}</{{ eyebrow_tag }}>
+{%- endif -%}
