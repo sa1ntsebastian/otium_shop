@@ -252,7 +252,11 @@
 
   {%- comment %} Otium brand motto — static Otium display element {% endcomment -%}
   <div class="otium-motto-band page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    <p class="otium-motto otium-motto--footer" aria-label="in otio esse.">~&nbsp;in øtiø esse.&nbsp;~</p>
+    <p class="otium-motto otium-motto--footer" aria-label="in otio esse.">
+      <span class="otium-motto__rule" aria-hidden="true"></span>
+      <span class="otium-motto__text">in øtiø esse.</span>
+      <span class="otium-motto__rule" aria-hidden="true"></span>
+    </p>
   </div>
 
   <div

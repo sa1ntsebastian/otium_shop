@@ -153,6 +153,23 @@ h1, h2, h3, h4, h5, h6,
   color: rgb(var(--color-foreground));
 }
 
+/* Word-mark in green (overrides Dawn's .header__heading-link .h2). No colour
+   change on hover — the logo stays calm. */
+.header__heading-link .h2,
+.header__heading-link:hover .h2 {
+  color: var(--otm-gruen);
+}
+
+/* Navigation: green at rest, on hover AND when active — state is shown by the
+   underline ONLY, never a colour change. Dawn already underlines on hover and
+   on the active item; here we just stop its colour shift and green the active
+   item's underline span. Maximum restraint. */
+.header__menu-item:hover,
+.header__active-menu-item,
+.header__menu-item:hover .header__active-menu-item {
+  color: var(--otm-gruen);
+}
+
 /* ----------------------------------------------------------------------------
    4. "Old money" calm — strip gradients, soften borders, remove heavy shadow
    These keep Dawn's structure but enforce the restrained brand look.
@@ -204,8 +221,22 @@ h1, h2, h3, h4, h5, h6,
   margin-block: clamp(2.4rem, 6vw, 5.6rem);
 }
 .otium-motto--footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.6rem, 3vw, 2.8rem);
   font-size: clamp(2.8rem, 4vw, 4rem);
   color: var(--otm-gruen);
+}
+
+/* Hairline flanks for the footer motto — same "geviert" treatment as the hero
+   ornament (replaces the old "~"), so the motto is consistent site-wide. */
+.otium-motto__rule {
+  flex: 0 0 auto;
+  width: 4.8rem;
+  height: 1px;
+  background-color: var(--otm-gruen);
+  opacity: 0.45;
 }
 
 /* ----------------------------------------------------------------------------
